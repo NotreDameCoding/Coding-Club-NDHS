@@ -3,7 +3,7 @@
 
 const club = {
   name: "Notre Dame Coding Club",
-  meetingInfo: "Every Monday during in lunch in the Steam Center"  // TODO: update
+  meetingInfo: "Every Gold Tuesday during in lunch in the Steam Center"  // TODO: update
 };
 
 const members = [
@@ -14,8 +14,8 @@ const members = [
 ];
 
 const meetings = [
-  { date: "2026-10-05", title: "General Info / Members Join Repo", note: "General information about the club will be covered" },
-  { date: "2026-10-12", title: "Basics of coding", note: "Club members will learn the basics of coding and be given coding resources" },
-  { date: "2026-10-19", title: "Project Assignment", note: "Club members will choose or be given a beginner coding project" },
+  { date: "2026-10-06", title: "General Info / Members Join Repo", note: "General information about the club will be covered" },
+  { date: "2026-10-18", title: "Basics of coding", note: "Club members will learn the basics of coding and be given coding resources" },
+  { date: "2026-10-30", title: "Project Assignment", note: "Club members will choose or be given a beginner coding project" },
   // add new meetings above this line
 ];
