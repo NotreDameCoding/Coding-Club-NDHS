@@ -14,6 +14,7 @@ const members = [
   { name: "Esa Wendel-Solberg", role: "Member", note: "Attend Meetings" },
   { name: "Jackson Henson", role: "Member", note: "Attend Meetings" },
   {name: "Jake G", role: "Member", note: "sirkorgo on GitHub"}
+  {name: "Aliya Sabripour", role: "Member", note: "Attend Meetings"}
   
   // add new members above
 ];
