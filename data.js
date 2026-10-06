@@ -13,11 +13,8 @@ const members = [
   { name: "Gabe Mogger", role: "Emperor", note: "Attend Meetings" },
   { name: "Esa Wendel-Solberg", role: "Member", note: "Attend Meetings" },
   { name: "Jackson Henson", role: "Member", note: "Attend Meetings" },
-  { name: "Jake G", role: "Member", note: "sirkorgo on GitHub" },
-  { name: "Porter", role: "Member", note: "Attend Meetings" },
-  { name: "Hannah", role: "Member", note: "Attend Meetings" },
-  { name: "Nolan", role: "Member", note: "Attend Meetings" }
-  
+  {name: "Jake G", role: "Member", note: "sirkorgo on GitHub"}
+  { name: "Charlie Williams", role: "Member", note: "super cool"} 
   // add new members above
 ];
 
