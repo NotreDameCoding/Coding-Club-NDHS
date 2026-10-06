@@ -10,11 +10,15 @@ const members = [
   { name: "Blake Westin", role: "President", note: "Manage the club" },
   { name: "Arie Lee", role: "Vice President", note: "Assist the President" },
   { name: "Masha Poberejsky", role: "Outreach", note: "Manage Social Media" },
-  { name: "Gabe Ho", role: "Member", note: "Attend Meetings" },
+  { name: "Gabe Mogger", role: "Emperor", note: "Attend Meetings" },
   { name: "Esa Wendel-Solberg", role: "Member", note: "Attend Meetings" },
   { name: "Jackson Henson", role: "Member", note: "Attend Meetings" },
-  {name: "Jake G", role: "Member", note: "sirkorgo on GitHub"}
-  {name: "Aliya Sabripour", role: "Member", note: "Attend Meetings"}
+  {name: "Jake G", role: "Member", note: "sirkorgo on GitHub"},
+  {name: "Aliya Sabripour", role: "Member", note: "Attend Meetings"},
+  { name: "Jake G", role: "Member", note: "sirkorgo on GitHub" },
+  { name: "Porter", role: "Member", note: "Attend Meetings" },
+  { name: "Hannah", role: "Member", note: "Attend Meetings" },
+  { name: "Nolan", role: "Member", note: "Attend Meetings" }
   
   // add new members above
 ];
