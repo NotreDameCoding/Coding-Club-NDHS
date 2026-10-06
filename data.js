@@ -11,6 +11,7 @@ const members = [
   { name: "Arie Lee", role: "Vice President", note: "Assist the President" },
   { name: "Masha Poberejsky", role: "Outreach", note: "Manage Social Media" },
   { name: "Gabe Ho", role: "Member", note: "Attend Meetings" },
+  { name: "Esa Wendel-Solberg", role: "Member", note: "Attend Meetings" },
 
   
   // add new members above
