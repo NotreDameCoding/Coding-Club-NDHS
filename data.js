@@ -16,6 +16,7 @@ const members = [
   { name: "j Henson", role: "Member", note: "Attend Meetings" },
   
 
+  { name: "Jack Henson", role: "Member", note: "Attend Meetings" },
   
   // add new members above
 ];
