@@ -12,7 +12,7 @@ const members = [
   { name: "Masha Poberejsky", role: "Outreach", note: "Manage Social Media" },
   { name: "Gabe Ho", role: "Member", note: "Attend Meetings" },
   { name: "Esa Wendel-Solberg", role: "Member", note: "Attend Meetings" },
-
+  { name: "Jackso", role: "Member", note: "Attend Meetings" },
   
   // add new members above
 ];
