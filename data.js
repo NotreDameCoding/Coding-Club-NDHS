@@ -18,9 +18,8 @@ const members = [
   { name: "Porter Hatfield", role: "Member", note: "Attend Meetings" },
   { name: "Hannah Fuentes", role: "Member", note: "Attend Meetings" },
   { name: "Nolan Grieder", role: "Member", note: "Attend Meetings" },
-  { name: "Charlie", role: "Philospher", note: "Attend Meetings" },
+  { name: "Charlie Williams", role: "Member", note: "Attend Meetings" },
   { name: "Declan Wilson", role: "Member", note: " Attend Meetings" },
-  
   // add new members above
 ];
 
