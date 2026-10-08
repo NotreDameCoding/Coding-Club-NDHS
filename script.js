@@ -29,10 +29,22 @@ function renderMembers() {
 
 function renderMeetings() {
   const list = document.getElementById("meeting-list");
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  let nextFound = false;
   meetings.forEach(m => {
-    const item = el("li");
     const when = new Date(m.date + "T12:00:00");
-    item.append(el("time", "", when.toLocaleDateString(undefined, { month: "short", day: "numeric" })));
+    const upcoming = when >= today;
+    const item = el("li", upcoming ? "" : "past");
+    // The first meeting that hasn't happened yet gets an "Up next" tag
+    if (upcoming && !nextFound) { item.classList.add("next"); nextFound = true; }
+    const stamp = el("time", "stamp");
+    stamp.dateTime = m.date;
+    stamp.append(
+      el("span", "mo", when.toLocaleDateString(undefined, { month: "short" })),
+      el("span", "day", String(when.getDate()))
+    );
+    item.append(stamp);
     const body = el("div");
     body.append(el("strong", "", m.title));
     if (m.note) body.append(el("p", "", m.note));
