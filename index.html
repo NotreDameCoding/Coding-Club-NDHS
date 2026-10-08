@@ -47,13 +47,23 @@
 
       <!-- To add a new topic later, copy this whole .concept block and give it its own script. -->
       <div class="concept">
-        <!-- Step 1: title and start button -->
+        <!-- Start -->
         <div id="bool-idle" class="concept-row">
-          <h3 class="concept-title">Boolean Expressions:</h3>
+          <h3 class="concept-title">Booleans:</h3>
           <button type="button" class="btn" id="bool-start">Learn / Review</button>
         </div>
 
-        <!-- Step 2: pick a difficulty (goes away once you choose) -->
+        <!-- Choose a game -->
+        <div id="bool-mode" hidden>
+          <p class="concept-ask">Choose a game</p>
+          <div class="diff-row">
+            <button type="button" class="btn" id="mode-expr">Boolean Expressions</button>
+            <button type="button" class="btn" id="mode-tt">Boolean Truth Tables</button>
+            <button type="button" class="btn btn-ghost" id="mode-back">Back</button>
+          </div>
+        </div>
+
+        <!-- Expressions: pick a difficulty (goes away once you choose) -->
         <div id="bool-pick" hidden>
           <p class="concept-ask">Select a difficulty</p>
           <div class="diff-row">
@@ -61,12 +71,16 @@
             <button type="button" class="btn diff-normal" data-diff="normal">Normal</button>
             <button type="button" class="btn diff-medium" data-diff="medium">Medium</button>
             <button type="button" class="btn diff-hard" data-diff="hard">Hard</button>
-            <button type="button" class="btn diff-extreme" data-diff="extreme">Extreme</button>
             <button type="button" class="btn btn-ghost" id="bool-cancel">Back</button>
           </div>
+          <label class="toggle">
+            <input type="checkbox" id="bool-numbers" role="switch" checked>
+            <span class="track"></span>
+            <span>Number comparisons (like 5 &gt; 3)</span>
+          </label>
         </div>
 
-        <!-- Step 3: the game -->
+        <!-- Expressions: the game -->
         <div id="bool-play" hidden>
           <div class="concept-row">
             <div class="expr" id="bool-expr" aria-live="polite"></div>
@@ -84,6 +98,26 @@
             <span class="stats" id="bool-stats"></span>
           </div>
           <div class="explain-box" id="bool-box" hidden></div>
+        </div>
+
+        <!-- Truth tables: the game -->
+        <div id="tt-play" hidden>
+          <p class="concept-ask">Build the expression that matches this table</p>
+          <div class="tt-layout">
+            <table class="tt" id="tt-table"></table>
+            <div class="tt-controls">
+              <button type="button" class="ans" id="tt-x">x</button>
+              <button type="button" class="ans" id="tt-op">&amp;&amp;</button>
+              <button type="button" class="ans" id="tt-y">y</button>
+              <button type="button" class="btn" id="tt-submit">Submit</button>
+            </div>
+          </div>
+          <p class="tt-answer" id="tt-answer" hidden></p>
+          <div class="bar">
+            <button type="button" class="btn" id="tt-next" hidden>Next question</button>
+            <button type="button" class="btn btn-ghost" id="tt-stop">Stop</button>
+            <span class="stats" id="tt-stats"></span>
+          </div>
         </div>
       </div>
     </section>
