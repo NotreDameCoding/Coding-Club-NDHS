@@ -43,10 +43,17 @@
     if ((o === "==" || o === "!=") && Math.random() < 0.5) b = a;
     return { t: "cmp", a, b, op: o };
   }
-  // One piece of an expression. `numbers` is the chance it is a comparison like 5 > 3.
+  // Comparing two booleans, like True == False or False != True
+  function beq() {
+    return { t: "cmp", a: rb(), b: rb(), op: rb() ? "==" : "!=", bool: true };
+  }
+  // One piece of an expression. `numbers` is the chance it is a number comparison like 5 > 3.
   function term(numbers) {
-    if (useNumbers && Math.random() < numbers) return Math.random() < 0.35 ? not(cmp()) : cmp();
-    return Math.random() < 0.3 ? not(lit()) : lit();
+    let x;
+    if (useNumbers && Math.random() < numbers) x = cmp();
+    else if (Math.random() < 0.22) x = beq();
+    else x = lit();
+    return Math.random() < 0.3 ? not(x) : x;
   }
 
   // limit = seconds per question (0 means no timer)
@@ -55,7 +62,8 @@
       () => not(lit()),
       () => bin(op(), lit(), lit()),
       () => bin(op(), lit(), lit()),
-      () => (useNumbers ? cmp() : bin(op(), lit(), lit()))
+      () => beq(),
+      () => (useNumbers ? cmp() : beq())
     ])() },
     normal: { name: "Normal", mode: "full", limit: 0, make: () => bin(op(), term(0.2), term(0.2)) },
     medium: { name: "Medium", mode: "full", limit: 20, make: () => bin(op(), bin(op(), term(0.2), term(0.2)), term(0.2)) },
@@ -73,7 +81,7 @@
   // mode "full" wraps every group in ( ). mode "min" only uses ( ) where they are needed.
   function str(n, mode) {
     if (n.t === "lit") return n.mark ? MARK_ON + T(n.v) + MARK_OFF : T(n.v);
-    if (n.t === "cmp") return n.a + " " + n.op + " " + n.b;
+    if (n.t === "cmp") return n.bool ? T(n.a) + " " + n.op + " " + T(n.b) : n.a + " " + n.op + " " + n.b;
     if (n.t === "not") {
       const s = str(n.x, mode);
       return "!" + (n.x.t === "lit" || n.x.t === "not" ? s : "(" + s + ")");
@@ -107,7 +115,7 @@
     while ((n = find(root))) {
       const v = ev(n);
       let text;
-      if (n.t === "cmp") text = `${n.a} ${n.op} ${n.b} is ${T(v)}.`;
+      if (n.t === "cmp") text = n.bool ? `${T(n.a)} ${n.op} ${T(n.b)} is ${T(v)}.` : `${n.a} ${n.op} ${n.b} is ${T(v)}.`;
       else if (n.t === "not") text = `! flips ${T(n.x.v)} to ${T(v)}.`;
       else if (n.t === "and") text = `${T(n.l.v)} && ${T(n.r.v)} is ${T(v)}. && is true only when both sides are true.`;
       else text = `${T(n.l.v)} || ${T(n.r.v)} is ${T(v)}. || is true when at least one side is true.`;
@@ -144,7 +152,6 @@
     S.locked = false;
     const ex = $("bool-expr");
     ex.textContent = s;
-    ex.classList.remove("swap"); void ex.offsetWidth; ex.classList.add("swap");
     for (const b of [$("bool-true"), $("bool-false")]) { b.className = "ans"; b.disabled = false; }
     $("bool-explain").disabled = false;
     $("bool-next").hidden = true;
@@ -229,7 +236,7 @@
   function renderExplain() {
     let h = `<p>Start: <code>${esc(S.expr)}</code></p>`;
     for (let i = 0; i < S.shown; i++) {
-      h += `<div class="step"><p>${esc(S.steps[i].text)}</p><p>Now: <code>${hl(S.steps[i].now)}</code></p></div>`;
+      h += `<div class="step"><p>${esc(S.steps[i].text)}</p><p><code>${hl(S.steps[i].now)}</code></p></div>`;
     }
     if (S.shown < S.steps.length) {
       h += `<button type="button" class="btn btn-explain" id="bool-step">Next step</button>`;
@@ -238,16 +245,13 @@
     }
     $("bool-box").innerHTML = h;
     const stepBtn = $("bool-step");
-    if (stepBtn) stepBtn.onclick = () => {
-      S.shown++;
-      // Going all the way through Explain before answering counts as a wrong answer.
-      if (S.shown >= S.steps.length && !S.locked) lose(null);
-      renderExplain();
-    };
+    if (stepBtn) stepBtn.onclick = () => { S.shown++; renderExplain(); };
   }
 
   function toggleExplain() {
     if (!S) return;
+    // Opening Explain before answering counts as a wrong answer right away.
+    if (!S.locked) lose(null);
     if ($("bool-box").hidden) openExplain(); else $("bool-box").hidden = true;
   }
 
@@ -296,16 +300,15 @@
 
   function ttButtons() {
     const p = TS.pick;
-    const set = (id, text, on) => {
+    const set = (id, text) => {
       const b = $(id);
       b.textContent = text;
-      b.className = "ans" + (on ? " on" : "");
+      b.className = "ans";
       b.disabled = false;
-      b.setAttribute("aria-pressed", on);
     };
-    set("tt-x", p.nx ? "!x" : "x", p.nx);
-    set("tt-op", p.or ? "||" : "&&", p.or);
-    set("tt-y", p.ny ? "!y" : "y", p.ny);
+    set("tt-x", p.nx ? "!x" : "x");
+    set("tt-op", p.or ? "||" : "&&");
+    set("tt-y", p.ny ? "!y" : "y");
   }
 
   function ttToggle(key) {
