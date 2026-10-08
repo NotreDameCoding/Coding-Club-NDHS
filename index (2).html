@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coding Club</title>
+  <meta name="description" content="Our school's coding club. Built by its members.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="concepts.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="#">Coding Club</a>
+    <nav aria-label="Main">
+      <a href="#members">Members</a>
+      <a href="#meetings">Meetings</a>
+      <a href="#concepts">Concepts</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Notre Dame High School Coding Club</h1>
+        <p><span id="member-count">our</span> active members. Email Blake.Westin.2029@ndhs.org to join today.</p>
+        <p class="when" id="when"></p>
+      </div>
+      <!-- <img src="images/athletics_monogram1-removebg-preview.png" alt="Club members at a meeting" class="hero-img"> -->
+    </section>
+
+    <section id="members" aria-labelledby="members-h">
+      <h2 id="members-h">Members</h2>
+      <ul class="wall" id="member-list"></ul>
+    </section>
+
+    <section id="meetings" aria-labelledby="meetings-h">
+      <h2 id="meetings-h">Meetings</h2>
+      <ul class="meetings" id="meeting-list"></ul>
+    </section>
+
+    <section id="concepts" aria-labelledby="concepts-h">
+      <h2 id="concepts-h">Concepts</h2>
+
+      <!-- To add a new topic later, copy this whole .concept block and give it its own script. -->
+      <div class="concept">
+        <!-- Step 1: title and start button -->
+        <div id="bool-idle" class="concept-row">
+          <h3 class="concept-title">Boolean Expressions:</h3>
+          <button type="button" class="btn" id="bool-start">Learn / Review</button>
+        </div>
+
+        <!-- Step 2: pick a difficulty (goes away once you choose) -->
+        <div id="bool-pick" hidden>
+          <p class="concept-ask">Select a difficulty</p>
+          <div class="diff-row">
+            <button type="button" class="btn diff-easy" data-diff="easy">Easy</button>
+            <button type="button" class="btn diff-normal" data-diff="normal">Normal</button>
+            <button type="button" class="btn diff-medium" data-diff="medium">Medium</button>
+            <button type="button" class="btn diff-hard" data-diff="hard">Hard</button>
+            <button type="button" class="btn diff-extreme" data-diff="extreme">Extreme</button>
+          </div>
+          <button type="button" class="btn btn-ghost" id="bool-cancel">Back</button>
+        </div>
+
+        <!-- Step 3: the game -->
+        <div id="bool-play" hidden>
+          <div class="concept-row">
+            <div class="expr" id="bool-expr" aria-live="polite"></div>
+            <div class="answers">
+              <button type="button" class="ans" id="bool-true">true</button>
+              <button type="button" class="ans" id="bool-false">false</button>
+            </div>
+          </div>
+          <div class="bar">
+            <span class="badge" id="bool-badge"></span>
+            <button type="button" class="btn btn-explain" id="bool-explain">Explain</button>
+            <button type="button" class="btn" id="bool-next" hidden>Next question</button>
+            <button type="button" class="btn btn-ghost" id="bool-stop">Stop</button>
+            <span class="stats" id="bool-stats"></span>
+          </div>
+          <div class="explain-box" id="bool-box" hidden></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="text-align: center;">
+  <p>Made with HTML, CSS, and JavaScript by the Coding Club. Assisted by Claude.</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+  <script src="concepts.js"></script>
+</body>
+</html>
