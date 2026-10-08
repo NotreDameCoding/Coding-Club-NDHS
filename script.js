@@ -20,8 +20,8 @@ function renderMembers() {
   const list = document.getElementById("member-list");
   const roster = members.filter(Boolean); // ignores stray commas in data.js
   const officerColor = {};                // role -> color number, handed out in order
-  roster.forEach(m => {
-    const item = el("li", "tile");
+  roster.forEach((m, i) => {
+    const item = el("li", "tile tone-" + (i % 4));
     const role = (m.role || "").trim().toLowerCase();
     if (role && !PLAIN_ROLES.includes(role)) {
       if (!(role in officerColor)) officerColor[role] = Object.keys(officerColor).length;
