@@ -34,7 +34,6 @@ const members = [
   { name: "Carlos Torres", role: "Member", note: "Attend Meetings" },
   { name: "Noah Gonzalez", role: "Member", note: "Attend Meetings" },
   { name: "Andrew Kim", role: "Member", note: "Attend Meetings" },
-  { name: "Dylan Burke", role: "Member", note: "Attend Meetings" },
   
   // add new members above
 ];
