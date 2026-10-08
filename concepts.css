@@ -80,8 +80,8 @@
 }
 .ans:hover:not(:disabled) { background: var(--sky); }
 .ans:disabled { cursor: default; }
-.ans.good { background: #b4f2d3; }
-.ans.bad  { background: #ffc2ba; }
+.ans.good { background: var(--mint); }
+.ans.bad  { background: #ff8f82; }
 
 /* Thin countdown bar (only shown on levels with a time limit) */
 .timer { height: 0.65rem; margin-top: 1rem; background: var(--paper); border: 2px solid var(--ink); border-radius: 999px; overflow: hidden; }
@@ -114,4 +114,9 @@
 .tt-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.7rem; }
 .tt-controls .ans { min-width: 4rem; font-size: 1.1rem; }
 .tt-controls .btn { margin-left: 0.5rem; }
-.tt-answer { margin: 1rem 0 0; font-weight: 800; }
+.tt-answer {
+  display: inline-block; margin: 1rem 0 0; padding: 0.25rem 0.9rem;
+  font-weight: 800; background: var(--paper);
+  border: 2px solid var(--ink); border-radius: 999px;
+}
+.tt-answer.ok { background: var(--mint); }
