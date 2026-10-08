@@ -1,4 +1,4 @@
-// Boolean Expressions game for the Concepts section.
+// Booleans section: two games, Boolean Expressions and Boolean Truth Tables.
 // Operators are Java-style (&&, ||, !, ==, !=).
 // Load this AFTER data.js and script.js in index.html.
 
@@ -6,22 +6,33 @@
   const $ = id => document.getElementById(id);
   const R = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
   const P = list => list[R(0, list.length - 1)];
+  const rb = () => Math.random() < 0.5;
   const esc = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-  // How the two values are written everywhere in the game.
+  // How the two values are written everywhere in the games.
   const TRUE_WORD = "True", FALSE_WORD = "False";
   const T = v => (v ? TRUE_WORD : FALSE_WORD);
   const NEXT_DELAY = 450; // ms the green flash stays after a correct answer
 
+  // Which panel of the card is showing
+  const PANELS = { idle: "bool-idle", mode: "bool-mode", pick: "bool-pick", play: "bool-play", tt: "tt-play" };
+  function show(which) {
+    for (const k in PANELS) $(PANELS[k]).hidden = (k !== which);
+  }
+
+  /* =====================================================
+     GAME 1: BOOLEAN EXPRESSIONS
+     ===================================================== */
   const CMP = {
     ">": (a, b) => a > b, "<": (a, b) => a < b,
     ">=": (a, b) => a >= b, "<=": (a, b) => a <= b,
     "==": (a, b) => a === b, "!=": (a, b) => a !== b
   };
 
-  /* ---------- building expressions ---------- */
+  let useNumbers = true; // set by the toggle on the difficulty screen
+
   // A node is { t: "lit" | "cmp" | "not" | "and" | "or", ... }
-  const lit = () => ({ t: "lit", v: Math.random() < 0.5 });
+  const lit = () => ({ t: "lit", v: rb() });
   const not = x => ({ t: "not", x });
   const bin = (t, l, r) => ({ t, l, r });
   const op = () => P(["and", "or"]);
@@ -34,7 +45,7 @@
   }
   // One piece of an expression. `numbers` is the chance it is a comparison like 5 > 3.
   function term(numbers) {
-    if (Math.random() < numbers) return Math.random() < 0.35 ? not(cmp()) : cmp();
+    if (useNumbers && Math.random() < numbers) return Math.random() < 0.35 ? not(cmp()) : cmp();
     return Math.random() < 0.3 ? not(lit()) : lit();
   }
 
@@ -44,7 +55,7 @@
       () => not(lit()),
       () => bin(op(), lit(), lit()),
       () => bin(op(), lit(), lit()),
-      () => cmp()
+      () => (useNumbers ? cmp() : bin(op(), lit(), lit()))
     ])() },
     normal: { name: "Normal", mode: "full", limit: 0, make: () => bin(op(), term(0.2), term(0.2)) },
     medium: { name: "Medium", mode: "full", limit: 20, make: () => bin(op(), bin(op(), term(0.2), term(0.2)), term(0.2)) },
@@ -52,15 +63,9 @@
       () => bin(op(), not(bin(op(), term(0.25), term(0.25))), term(0.25)),
       () => bin("or", term(0.25), bin("and", term(0.25), term(0.25))),
       () => bin("and", bin("or", term(0.25), term(0.25)), not(term(0.25)))
-    ])() },
-    extreme: { name: "Extreme", mode: "min", limit: 10, make: () => P([
-      () => bin("or", bin("and", term(0.2), term(0.2)), bin("and", term(0.2), not(bin("or", term(0.2), term(0.2))))),
-      () => bin("and", bin("or", term(0.2), not(bin("and", term(0.2), term(0.2)))), bin("or", term(0.2), term(0.2))),
-      () => bin("or", not(bin("and", term(0.2), bin("or", term(0.2), term(0.2)))), bin("and", term(0.2), term(0.2)))
     ])() }
   };
 
-  /* ---------- printing and solving ---------- */
   const prec = n => ({ or: 1, and: 2, not: 3, cmp: 4, lit: 5 })[n.t];
   const SYM = { and: "&&", or: "||" };
   const MARK_ON = "\u0001", MARK_OFF = "\u0002"; // wraps the piece that just changed
@@ -115,28 +120,16 @@
     return out;
   }
 
-  /* ---------- the game ---------- */
-  let S = null, timer = null, qTimer = null, clock = null;
-
-  function show(which) {
-    ["idle", "pick", "play"].forEach(k => { $("bool-" + k).hidden = (k !== which); });
-  }
+  let S = null, timer = null, qTimer = null;
 
   function begin(key) {
-    S = { key, d: DIFFS[key], score: 0, streak: 0, last: "", start: Date.now() };
+    useNumbers = $("bool-numbers").checked;
+    S = { d: DIFFS[key], score: 0, streak: 0, last: "" };
     const badge = $("bool-badge");
     badge.textContent = S.d.limit ? `${S.d.name} · ${S.d.limit}s` : S.d.name;
     badge.className = "badge diff-" + key;
     show("play");
-    clearInterval(clock);
-    clock = setInterval(stats, 1000);
     next();
-  }
-
-  function stop() {
-    clearTimeout(timer); clearTimeout(qTimer); clearInterval(clock);
-    S = null;
-    show("idle");
   }
 
   function next() {
@@ -161,10 +154,7 @@
   }
 
   function stats() {
-    if (!S) return;
-    const sec = Math.floor((Date.now() - S.start) / 1000);
-    const clockText = Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0");
-    $("bool-stats").textContent = `Time ${clockText} · Score ${S.score} · Streak ${S.streak}`;
+    if (S) $("bool-stats").textContent = `Score ${S.score} · Streak ${S.streak}`;
   }
 
   /* question timer: a thin bar that empties, only on levels with a limit */
@@ -261,16 +251,124 @@
     if ($("bool-box").hidden) openExplain(); else $("bool-box").hidden = true;
   }
 
+  /* =====================================================
+     GAME 2: BOOLEAN TRUTH TABLES
+     The table shows x, y and a result. Build the expression that makes it.
+     Every answer looks like  [!]x  (&& or ||)  [!]y
+     ===================================================== */
+  let TS = null, ttTimer = null;
+  const ROWS = [[true, true], [true, false], [false, true], [false, false]];
+
+  // c = { nx: x is negated, ny: y is negated, or: uses || instead of && }
+  function ttEval(c, x, y) {
+    const a = c.nx ? !x : x;
+    const b = c.ny ? !y : y;
+    return c.or ? (a || b) : (a && b);
+  }
+  const ttLabel = c => `${c.nx ? "!" : ""}x ${c.or ? "||" : "&&"} ${c.ny ? "!" : ""}y`;
+
+  function ttBegin() {
+    TS = { score: 0, streak: 0, last: "" };
+    show("tt");
+    ttNext();
+  }
+
+  function ttNext() {
+    clearTimeout(ttTimer);
+    let t, key;
+    do { t = { nx: rb(), ny: rb(), or: rb() }; key = [t.nx, t.ny, t.or].join(); } while (key === TS.last);
+    TS.last = key;
+    TS.target = t;
+    TS.pick = { nx: false, ny: false, or: false }; // starts as x && y
+    TS.locked = false;
+    $("tt-table").innerHTML = "<tr><th>x</th><th>y</th><th>Result</th></tr>" +
+      ROWS.map(([x, y]) => `<tr><td>${T(x)}</td><td>${T(y)}</td><td>${T(ttEval(t, x, y))}</td></tr>`).join("");
+    $("tt-answer").hidden = true;
+    $("tt-next").hidden = true;
+    $("tt-submit").disabled = false;
+    ttButtons();
+    ttStats();
+  }
+
+  function ttStats() {
+    if (TS) $("tt-stats").textContent = `Score ${TS.score} · Streak ${TS.streak}`;
+  }
+
+  function ttButtons() {
+    const p = TS.pick;
+    const set = (id, text, on) => {
+      const b = $(id);
+      b.textContent = text;
+      b.className = "ans" + (on ? " on" : "");
+      b.disabled = false;
+      b.setAttribute("aria-pressed", on);
+    };
+    set("tt-x", p.nx ? "!x" : "x", p.nx);
+    set("tt-op", p.or ? "||" : "&&", p.or);
+    set("tt-y", p.ny ? "!y" : "y", p.ny);
+  }
+
+  function ttToggle(key) {
+    if (!TS || TS.locked) return;
+    TS.pick[key] = !TS.pick[key];
+    ttButtons();
+  }
+
+  function ttSubmit() {
+    if (!TS || TS.locked) return;
+    TS.locked = true;
+    const p = TS.pick, t = TS.target;
+    const parts = [["tt-x", p.nx === t.nx], ["tt-op", p.or === t.or], ["tt-y", p.ny === t.ny]];
+    parts.forEach(([id, ok]) => {
+      const b = $(id);
+      b.classList.add(ok ? "good" : "bad");
+      b.disabled = true;
+    });
+    $("tt-submit").disabled = true;
+    if (parts.every(part => part[1])) {
+      TS.score++; TS.streak++;
+      ttStats();
+      ttTimer = setTimeout(ttNext, NEXT_DELAY);
+    } else {
+      TS.streak = 0;
+      ttStats();
+      $("tt-answer").textContent = "Answer: " + ttLabel(t);
+      $("tt-answer").hidden = false;
+      $("tt-next").hidden = false;
+    }
+  }
+
+  /* =====================================================
+     WIRING
+     ===================================================== */
+  function stop() {
+    clearTimeout(timer); clearTimeout(qTimer); clearTimeout(ttTimer);
+    S = null; TS = null;
+    show("idle");
+  }
+
   $("bool-true").textContent = TRUE_WORD;
   $("bool-false").textContent = FALSE_WORD;
-  $("bool-start").onclick = () => show("pick");
-  $("bool-cancel").onclick = () => show("idle");
+
+  $("bool-start").onclick = () => show("mode");
+  $("mode-back").onclick = () => show("idle");
+  $("mode-expr").onclick = () => show("pick");
+  $("mode-tt").onclick = ttBegin;
+  $("bool-cancel").onclick = () => show("mode");
   document.querySelectorAll("#bool-pick [data-diff]").forEach(b => {
     b.onclick = () => begin(b.dataset.diff);
   });
+
   $("bool-true").onclick = () => answer(true);
   $("bool-false").onclick = () => answer(false);
   $("bool-explain").onclick = toggleExplain;
   $("bool-next").onclick = next;
   $("bool-stop").onclick = stop;
+
+  $("tt-x").onclick = () => ttToggle("nx");
+  $("tt-op").onclick = () => ttToggle("or");
+  $("tt-y").onclick = () => ttToggle("ny");
+  $("tt-submit").onclick = ttSubmit;
+  $("tt-next").onclick = ttNext;
+  $("tt-stop").onclick = stop;
 })();
