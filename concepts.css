@@ -1,11 +1,12 @@
 /* Concepts section. Uses the variables from style.css (--ink, --cobalt, --sky, --paper, --signal, --muted). */
 
 .concept {
-  max-width: 44rem;
   padding: 1.1rem 1.25rem;
   border-radius: 0.75rem;
   background: var(--sky);
 }
+/* One font for everything in here: the site font */
+.concept, .concept button, .concept code { font-family: inherit; }
 /* Keeps the hidden attribute working even on flex containers */
 .concept [hidden] { display: none !important; }
 
@@ -25,7 +26,7 @@
 .btn-explain { background: transparent; color: var(--cobalt); border-style: dashed; }
 
 /* Difficulty colors (buttons and the badge while playing) */
-.diff-row { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 0.9rem; }
+.diff-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; }
 .diff-easy    { background: #1f9d55; border-color: #1f9d55; color: #fff; }
 .diff-normal  { background: var(--signal); border-color: var(--signal); color: var(--ink); }
 .diff-medium  { background: #f58a1f; border-color: #f58a1f; color: var(--ink); }
@@ -38,13 +39,17 @@
 
 /* Game */
 .expr {
-  flex: 1; min-width: 12rem; overflow-x: auto;
-  font: 600 1.35rem ui-monospace, Menlo, Consolas, monospace;
+  flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap;
+  font-size: 1.4rem; font-weight: 700;
 }
+.expr.swap { animation: swap 0.18s ease-out; }
+@keyframes swap { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .expr.swap { animation: none; } }
+
 .answers { display: flex; gap: 0.6rem; }
 .ans {
   min-width: 6rem; padding: 0.5rem 1rem; cursor: pointer;
-  font: 700 1rem ui-monospace, Menlo, Consolas, monospace;
+  font: inherit; font-weight: 700;
   color: var(--ink); background: var(--paper);
   border: 2px solid #b9c4e4; border-radius: 0.5rem;
 }
@@ -53,6 +58,10 @@
 .ans:disabled { cursor: default; }
 .ans.good { background: #d9f3e4; border-color: #1f9d55; color: #14693a; }
 .ans.bad  { background: #fae0e0; border-color: #d63c3c; color: #a82727; }
+
+/* Thin countdown bar (only shown on levels with a time limit) */
+.timer { height: 0.35rem; margin-top: 0.9rem; border-radius: 999px; background: #c9d4f2; overflow: hidden; }
+.timer-fill { width: 100%; height: 100%; background: var(--cobalt); }
 
 .bar {
   display: flex; align-items: center; flex-wrap: wrap; gap: 0.6rem;
@@ -65,6 +74,6 @@
   background: var(--paper); border: 2px dashed var(--cobalt); border-radius: 0.75rem;
 }
 .explain-box p { margin: 0.35rem 0; }
-.explain-box code { font: 600 1rem ui-monospace, Menlo, Consolas, monospace; }
+.explain-box code { font: inherit; font-weight: 700; }
+.explain-box mark { background: var(--signal); color: var(--ink); padding: 0 0.25rem; border-radius: 0.25rem; }
 .explain-box .step { margin: 0.7rem 0; padding-left: 0.8rem; border-left: 3px solid var(--cobalt); }
-.explain-box .note { color: var(--muted); font-size: 0.95rem; }
