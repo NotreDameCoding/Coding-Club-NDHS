@@ -22,6 +22,19 @@ const members = [
   { name: "Holden Antoon", role: "Member", note: "Attend Meetings" },
   { name: "Finn Sweeeney", role: "Member", note: "Attend Meetings" },
   { name: "Declan Wilson", role: "Member", note: "Attend Meetings" },
+  { name: "John Schaubach", role: "Member", note: "Attend Meetings" },
+  { name: "Jacob Liezon", role: "Member", note: "Attend Meetings" },
+  { name: "Marlon Russel", role: "Member", note: "Attend Meetings" },
+  { name: "Daniel Arato", role: "Member", note: "Attend Meetings" },
+  { name: "Cormac Skaggs", role: "Member", note: "Attend Meetings" },
+  { name: "Nico Piedmont", role: "Member", note: "Attend Meetings" },
+  { name: "Ayden Cserkuti", role: "Member", note: "Attend Meetings" },
+  { name: "James Renard", role: "Member", note: "Attend Meetings" },
+  { name: "Magnus Miklin", role: "Member", note: "Attend Meetings" },
+  { name: "Carlos Torres", role: "Member", note: "Attend Meetings" },
+  { name: "Noah Gonzalez", role: "Member", note: "Attend Meetings" },
+  { name: "Andrew Kim", role: "Member", note: "Attend Meetings" },
+  { name: "Dylan Burke", role: "Member", note: "Attend Meetings" },
   
   // add new members above
 ];
