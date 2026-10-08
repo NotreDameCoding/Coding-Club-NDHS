@@ -62,8 +62,8 @@
             <button type="button" class="btn diff-medium" data-diff="medium">Medium</button>
             <button type="button" class="btn diff-hard" data-diff="hard">Hard</button>
             <button type="button" class="btn diff-extreme" data-diff="extreme">Extreme</button>
+            <button type="button" class="btn btn-ghost" id="bool-cancel">Back</button>
           </div>
-          <button type="button" class="btn btn-ghost" id="bool-cancel">Back</button>
         </div>
 
         <!-- Step 3: the game -->
@@ -71,10 +71,11 @@
           <div class="concept-row">
             <div class="expr" id="bool-expr" aria-live="polite"></div>
             <div class="answers">
-              <button type="button" class="ans" id="bool-true">true</button>
-              <button type="button" class="ans" id="bool-false">false</button>
+              <button type="button" class="ans" id="bool-true">True</button>
+              <button type="button" class="ans" id="bool-false">False</button>
             </div>
           </div>
+          <div class="timer" id="bool-timer" hidden><div class="timer-fill" id="bool-timer-fill"></div></div>
           <div class="bar">
             <span class="badge" id="bool-badge"></span>
             <button type="button" class="btn btn-explain" id="bool-explain">Explain</button>
