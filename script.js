@@ -12,10 +12,21 @@ function initials(name) {
     .map(part => part[0].toUpperCase()).join("");
 }
 
+// Roles with no special color: plain members and the inside jokes
+const PLAIN_ROLES = ["member", "emperor", "philosopher"];
+const OFFICER_COLORS = 6; // officer-0 to officer-5 in style.css
+
 function renderMembers() {
   const list = document.getElementById("member-list");
-  members.forEach((m, i) => {
-    const item = el("li", "tile tone-" + (i % 4));
+  const roster = members.filter(Boolean); // ignores stray commas in data.js
+  const officerColor = {};                // role -> color number, handed out in order
+  roster.forEach(m => {
+    const item = el("li", "tile");
+    const role = (m.role || "").trim().toLowerCase();
+    if (role && !PLAIN_ROLES.includes(role)) {
+      if (!(role in officerColor)) officerColor[role] = Object.keys(officerColor).length;
+      item.classList.add("officer", "officer-" + (officerColor[role] % OFFICER_COLORS));
+    }
     item.append(el("span", "avatar", initials(m.name)));
     const body = el("div");
     body.append(el("strong", "", m.name));
@@ -24,7 +35,7 @@ function renderMembers() {
     item.append(body);
     list.append(item);
   });
-  document.getElementById("member-count").textContent = members.length;
+  document.getElementById("member-count").textContent = roster.length;
 }
 
 function renderMeetings() {
