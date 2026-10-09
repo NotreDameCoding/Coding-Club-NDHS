@@ -34,6 +34,24 @@ const members = [
   { name: "Carlos Torres", role: "Member", note: "Attend Meetings" },
   { name: "Noah Gonzalez", role: "Member", note: "Attend Meetings" },
   { name: "Andrew Kim", role: "Member", note: "Attend Meetings" },
+  { name: "Alexander Szot", role: "Member", note: "Attend Meetings" },
+  { name: "Eva Havanessian", role: "Member", note: "Attend Meetings" },
+  { name: "Charles Renard", role: "Member", note: "Attend Meetings" },
+  { name: "Eli Billik", role: "Member", note: "Attend Meetings" },
+  { name: "Marcus Hwang", role: "Member", note: "Attend Meetings" },
+  { name: "Felix Martin", role: "Member", note: "Attend Meetings" },
+  { name: "Christian Perez", role: "Member", note: "Attend Meetings" },
+  { name: "Selah Boze", role: "Member", note: "Attend Meetings" },
+  { name: "Owen Casillas", role: "Member", note: "Attend Meetings" },
+  { name: "Matthew Mendez", role: "Member", note: "Attend Meetings" },
+  { name: "Ryan Bohmholdt", role: "Member", note: "Attend Meetings" },
+  { name: "Violet Eastabrooks", role: "Member", note: "Attend Meetings" },
+  { name: "Jerome Abo", role: "Member", note: "Attend Meetings" },
+  { name: "Jonathan Gomez", role: "Member", note: "Attend Meetings" },
+  { name: "Oliver Taing", role: "Member", note: "Attend Meetings" },
+  { name: "Kevin Cantizano", role: "Member", note: "Attend Meetings" },
+  { name: "Nico Guerra", role: "Member", note: "Attend Meetings" },
+  
   
   // add new members above
 ];
