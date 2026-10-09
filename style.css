@@ -55,7 +55,7 @@ nav a {
 
 main, footer { padding: 0 clamp(1rem, 5vw, 3rem); max-width: 68rem; margin: 0 auto; }
 
-/* Hero: text on the left, code window on the right */
+/* Hero: text on the left, knight on the right */
 .hero {
   display: grid; grid-template-columns: 1fr; gap: 2.5rem; align-items: center;
   padding: clamp(2.5rem, 7vw, 5rem) 0 2rem;
@@ -81,7 +81,7 @@ main, footer { padding: 0 clamp(1rem, 5vw, 3rem); max-width: 68rem; margin: 0 au
 
 /* Section headings get a highlighter underline */
 h2 {
-  display: inline-block; margin: 3.5rem 0 1.25rem; padding: 0 0.35rem;
+  display: inline-block; margin: 1.75rem 0 1.25rem; padding: 0 0.35rem;
   font-size: clamp(1.7rem, 3.5vw, 2.3rem); font-weight: 800; letter-spacing: -0.02em;
   background: linear-gradient(transparent 58%, var(--signal) 58%);
 }
@@ -150,7 +150,7 @@ h2 {
   border-top: 2px solid var(--coral); transform: rotate(-30deg);
 }
 .meetings li.past strong::after {
-  content: "¹3  Completed"; margin-left: 0.6rem; padding: 0.05rem 0.6rem;
+  content: "\2713  Completed"; margin-left: 0.6rem; padding: 0.05rem 0.6rem;
   color: var(--muted); font-size: 0.75rem; font-weight: 700;
   border: 1.5px solid var(--muted); border-radius: 999px;
 }
@@ -168,6 +168,17 @@ h2 {
   border: 1.5px solid var(--ink); border-radius: 999px;
 }
 .meetings p { margin: 0.15rem 0 0; color: var(--muted); }
+
+/* "Show more / Show less" for long lists */
+.wall.collapsed .extra, .meetings.collapsed .extra { display: none; }
+.toggle-more {
+  display: block; margin: 1.25rem 0 0; padding: 0.5rem 1.4rem;
+  font: inherit; font-weight: 700; cursor: pointer;
+  background: var(--paper); color: var(--ink);
+  border: 2px solid var(--ink); border-radius: 999px; box-shadow: var(--shadow);
+}
+.toggle-more[hidden] { display: none; }
+.toggle-more:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
 
 /* Footer */
 footer { padding-bottom: 3rem; text-align: center; color: var(--muted); }
