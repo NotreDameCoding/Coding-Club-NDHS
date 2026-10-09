@@ -172,7 +172,7 @@ h2 {
 /* "Show more / Show less" for long lists */
 .wall.collapsed .extra, .meetings.collapsed .extra { display: none; }
 .toggle-more {
-  display: block; margin: 1.25rem 0 0; padding: 0.5rem 1.4rem;
+  display: block; margin: 1.00rem 0 0; padding: 0.5rem 1.2rem;
   font: inherit; font-weight: 700; cursor: pointer;
   background: var(--paper); color: var(--ink);
   border: 2px solid var(--ink); border-radius: 999px; box-shadow: var(--shadow);
