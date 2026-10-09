@@ -172,10 +172,10 @@ h2 {
 /* "Show more / Show less" for long lists */
 .wall.collapsed .extra, .meetings.collapsed .extra { display: none; }
 .toggle-more {
-  display: block; margin: 1.00rem 0 0; padding: 0.5rem 1.2rem;
+  display: block; margin: 0.5rem 0 0; padding: 0.22rem 0.63rem;
   font: inherit; font-weight: 700; cursor: pointer;
   background: var(--paper); color: var(--ink);
-  border: 2px solid var(--ink); border-radius: 999px; box-shadow: var(--shadow);
+  border: 1.2px solid var(--ink); border-radius: 999px; box-shadow: var(--shadow);
 }
 .toggle-more[hidden] { display: none; }
 .toggle-more:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
