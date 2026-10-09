@@ -11,14 +11,14 @@ const members = [
   { name: "Arie Lee", role: "Vice President", note: "Help manage club" },
   { name: "Masha Poberejsky", role: "Outreach", note: "Run social media" },
   { name: "Jake Gozen", role: "Learning Coordinator", note: "Teach club members" },
-  { name: "Gabe Mogger", role: "Emperor", note: "Attend Meetings" },
+  { name: "Gabe Mogger", role: "Member", note: "Attend Meetings" },
   { name: "Esa Wendel-Solberg", role: "Member", note: "Attend Meetings" },
   { name: "Jackson Henson", role: "Member", note: "Attend Meetings" },
   { name: "Aliya Sabripour", role: "Member", note: "Attend Meetings"},,
   { name: "Porter Hatfield", role: "Member", note: "Attend Meetings" },
   { name: "Hannah Fuentes", role: "Member", note: "Attend Meetings" },
   { name: "Nolan Grieder", role: "Member", note: "Attend Meetings" },
-  { name: "Charlie Williams", role: "Philosopher", note: "Attend Meetings" },
+  { name: "Charlie Williams", role: "Member", note: "Attend Meetings" },
   { name: "Holden Antoon", role: "Member", note: "Attend Meetings" },
   { name: "Finn Sweeeney", role: "Member", note: "Attend Meetings" },
   { name: "Declan Wilson", role: "Member", note: "Attend Meetings" },
@@ -40,7 +40,8 @@ const members = [
 
 const meetings = [
   { date: "2026-10-06", title: "General Info / Members Join Repo", note: "General information about the club will be covered" },
-  { date: "2026-10-18", title: "Basics of coding", note: "Club members will learn the basics of coding and be given coding resources" },
-  { date: "2026-10-30", title: "Project Assignment", note: "Club members will choose or be given a beginner coding project" },
+  { date: "2026-10-13", title: "Booleans", note: "Club members learn about booleans" },
+  { date: "2026-10-19", title: "Loops", note: "Club members will learn about loops" },
+  { date: "2026-10-26", title: "Project Assignment", note: "Club members will choose or be given a beginner coding project" },
   // add new meetings above this line
 ];
