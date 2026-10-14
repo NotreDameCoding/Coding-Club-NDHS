@@ -14,13 +14,7 @@
 </head>
 <body>
   <header class="top">
-    <a class="brand" href="#">Coding Club</a>
-    <nav aria-label="Main">
-      <a href="#meetings">Meetings</a>
-      <a href="#concepts">Concepts</a>
-      <a href="#games">Coding Games</a>
-      <a href="#members">Members</a>
-    </nav>
+    <a class="brand" href="#home">Coding Club</a>
   </header>
 
   <main>
@@ -37,20 +31,34 @@
       <!-- <img src="images/athletics_monogram1-removebg-preview.png" alt="Club members at a meeting" class="hero-img"> -->
     </section>
 
-    <section id="meetings" aria-labelledby="meetings-h">
+    <!-- Tabs: script.js shows one section at a time. Links like #games open that tab. -->
+    <div class="tabbar" role="tablist" aria-label="Sections">
+      <button type="button" role="tab" id="tab-home" data-tab="home" aria-controls="home">Home</button>
+      <button type="button" role="tab" id="tab-meetings" data-tab="meetings" aria-controls="meetings">Meetings</button>
+      <button type="button" role="tab" id="tab-concepts" data-tab="concepts" aria-controls="concepts">Concepts</button>
+      <button type="button" role="tab" id="tab-games" data-tab="games" aria-controls="games">Coding Games</button>
+      <button type="button" role="tab" id="tab-members" data-tab="members" aria-controls="members">Members</button>
+    </div>
+
+    <section id="home" role="tabpanel" aria-labelledby="tab-home">
+      <!-- Preview cards, built by script.js from data.js -->
+      <div class="home-cards" id="home-cards"></div>
+    </section>
+
+    <section id="meetings" role="tabpanel" aria-labelledby="meetings-h">
       <h2 id="meetings-h">Meetings</h2>
       <ul class="meetings" id="meeting-list"></ul>
       <button type="button" class="toggle-more" id="meetings-toggle" aria-controls="meeting-list" aria-expanded="false" hidden>Show more</button>
     </section>
 
-    <section id="concepts" aria-labelledby="concepts-h">
+    <section id="concepts" role="tabpanel" aria-labelledby="concepts-h">
       <h2 id="concepts-h">Concepts</h2>
       <!-- Built from the "concept" and "learned" lines on each meeting in data.js -->
       <ul class="concept-list" id="concept-list"></ul>
       <button type="button" class="toggle-more" id="concepts-toggle" aria-controls="concept-list" aria-expanded="false" hidden>Show more</button>
     </section>
 
-    <section id="games" aria-labelledby="games-h">
+    <section id="games" role="tabpanel" aria-labelledby="games-h">
       <h2 id="games-h">Coding Games</h2>
 
       <!-- To add a new game later, copy a whole .game block and give it its own part of games.js. -->
@@ -180,7 +188,7 @@
       </div>
     </section>
 
-    <section id="members" aria-labelledby="members-h">
+    <section id="members" role="tabpanel" aria-labelledby="members-h">
       <h2 id="members-h">Members</h2>
       <ul class="wall" id="member-list"></ul>
       <button type="button" class="toggle-more" id="members-toggle" aria-controls="member-list" aria-expanded="false" hidden>Show more</button>
