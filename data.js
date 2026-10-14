@@ -78,7 +78,7 @@ const meetings = [
     learned: "Every element is a box with four layers: the content, `padding` around the content, a `border`, and `margin` outside the border that pushes other boxes away. Right-click any element and choose Inspect to see the size of each layer in the browser's dev tools." },
   { date: "2026-11-10", title: "Flexbox Layout", note: "Club members will learn rows, columns, and centering, and build a nav bar",
     concept: "Flexbox",
-    learned: "`display: flex` lines up an element's children in a row. `justify-content` spaces them out along the row (like `center` or `space-between`), `align-items` lines them up top to bottom, and `gap` adds space between them. We used it to build a nav bar. Practice it in the Flexbox game below." },
+    learned: "`display: flex` lines up an element's children in a row. `justify-content` spaces them out along the row (like `center` or `space-between`), `align-items` lines them up top to bottom, and `gap` adds space between them. We used it to build a nav bar. Practice it with the Flexbox game in Coding Games." },
   { date: "2026-11-17", title: "Plan Your Website", note: "Club members will sketch a wireframe and set up a repo for their personal site",
     concept: "Wireframes",
     learned: "A wireframe is a quick sketch of a page's layout made before writing any code. Deciding your sections first (like About, Projects, and Contact) makes building much faster. You also set up your own GitHub repo to hold your site." },
