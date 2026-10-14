@@ -11,7 +11,7 @@ const members = [
   { name: "Arie Lee", role: "Vice President", note: "Help manage club" },
   { name: "Masha Poberejsky", role: "Outreach", note: "Run social media" },
   { name: "Jake Gozen", role: "Learning Coordinator", note: "Teach club members" },
-  { name: "Gabe Mogger", role: "Member", note: "Attend Meetings" },
+  { name: "Gabe Ho", role: "Member", note: "Attend Meetings" },
   { name: "Esa Wendel-Solberg", role: "Member", note: "Attend Meetings" },
   { name: "Jackson Henson", role: "Member", note: "Attend Meetings" },
   { name: "Aliya Sabripour", role: "Member", note: "Attend Meetings"},,
@@ -61,16 +61,16 @@ const members = [
 //   learned: what was learned (shown in its dropdown once the meeting's date has passed)
 // Put `backticks` around code, like `<h1>`, and it shows up as code on the site.
 const meetings = [
-  { date: "2026-10-06", title: "General Info / Members Join Repo", note: "General information about the club will be covered",
+  { date: "2026-10-06", title: "Pull Requests", note: "General information about the club will be covered and Members will make a pull request adding themselves to the website",
     concept: "Git & Pull Requests",
     learned: "The club website lives in one shared GitHub repo, so everyone can work on it without overwriting each other. You edited `data.js` to add your own line, committed the change, and opened a pull request: a request to merge your change into the main code. Once an officer reviewed and merged it, your name showed up on the Members wall." },
-  { date: "2026-10-13", title: "HTML Basics on CodePen", note: "Club members will learn tags, elements, and attributes by building a small page on CodePen",
+  { date: "2026-10-14", title: "HTML Basics on CodePen", note: "Club members will learn tags, elements, and attributes by building a small page on CodePen",
     concept: "Tags & Elements",
     learned: "HTML describes what is on a web page. A page is made of elements, and most elements have an opening tag and a closing tag, like `<p>Hello</p>`. Attributes go inside the opening tag and add extra info, like the `href` in `<a href=\"page.html\">`. CodePen let us type HTML and watch the page update right away." },
   { date: "2026-10-20", title: "HTML Structure", note: "Club members will learn headings, links, images, lists, and semantic tags",
     concept: "Page Structure",
     learned: "Headings go from `<h1>` (most important) down to `<h6>`, and `<p>` holds paragraphs. `<a>` makes links, `<img>` shows pictures (`src` is the file, `alt` describes it), and `<ul>` or `<ol>` with `<li>` items make lists. Semantic tags like `<header>`, `<nav>`, `<main>`, and `<footer>` say what each part of the page is for." },
-  { date: "2026-10-27", title: "CSS Basics", note: "Club members will learn selectors, colors, and fonts, and link a stylesheet",
+  { date: "2026-10-28", title: "CSS Basics", note: "Club members will learn selectors, colors, and fonts, and link a stylesheet",
     concept: "Selectors & Styles",
     learned: "CSS controls how a page looks. A rule has a selector that picks elements and declarations that style them, like `h1 { color: blue; }`. Selectors can target a tag (`p`), a class (`.card`), or an id (`#title`). A stylesheet is connected with `<link rel=\"stylesheet\" href=\"style.css\">` inside the `<head>`." },
   { date: "2026-11-03", title: "The Box Model", note: "Club members will learn margin, padding, and borders using the browser inspector",
