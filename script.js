@@ -75,8 +75,8 @@ function renderMeetings() {
   setupPastToggle(list, nextIdx);
 }
 
-// Past meetings are hidden at first. A dashed card at the top of the list,
-// right where they would be, shows or hides them.
+// Past meetings are hidden at first. A dashed card sits between them and the
+// upcoming meetings; opening it shows the past meetings above it.
 function setupPastToggle(list, pastCount) {
   if (pastCount === 0) return;
   list.classList.add("hide-past");
@@ -88,12 +88,15 @@ function setupPastToggle(list, pastCount) {
   const label = shown => (shown ? "Hide past meetings" : `Show ${pastCount} past meeting${pastCount === 1 ? "" : "s"}`);
   button.append(el("span", "pt-arrow"), el("span", "pt-label", label(false)));
   button.addEventListener("click", () => {
+    const before = item.getBoundingClientRect().top;
     const shown = !list.classList.toggle("hide-past");
     button.setAttribute("aria-expanded", String(shown));
     button.querySelector(".pt-label").textContent = label(shown);
+    // Keep the button where it was on screen, so the past meetings open upward
+    window.scrollBy({ top: item.getBoundingClientRect().top - before, behavior: "instant" });
   });
   item.append(button);
-  list.prepend(item);
+  list.insertBefore(item, list.children[pastCount] || null); // right after the past meetings
 }
 
 // Turns `backtick` parts of a sentence into <code>, safely (no innerHTML).
@@ -138,6 +141,9 @@ function renderConcepts() {
 document.title = club.name;
 document.querySelector(".brand").textContent = club.name;
 document.getElementById("when").textContent = club.meetingInfo;
+// Pixel-art arrow for the Home card buttons, drawn like the knight
+const ARROW_SVG = '<svg viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path fill="#fff" d="M3 0h1v1h-1zM3 1h2v1h-2zM0 2h6v1h-6zM0 3h7v1h-7zM0 4h6v1h-6zM3 5h2v1h-2zM3 6h1v1h-1z"/></svg>';
+
 // Home tab: one preview card per section
 const plural = (n, word) => n + " " + word + (n === 1 ? "" : "s");
 
@@ -156,7 +162,11 @@ function renderHome() {
   cards.forEach(c => {
     const card = el("a", "home-card");
     card.href = "#" + c.tab;
-    card.append(el("h3", "", c.title), el("p", "", c.preview), el("span", "go", c.go + " →"));
+    const go = el("span", "go", c.go);
+    const arrow = el("span", "go-arrow");
+    arrow.innerHTML = ARROW_SVG; // fixed drawing, no user data
+    go.append(arrow);
+    card.append(el("h3", "", c.title), el("p", "", c.preview), go);
     box.append(card);
   });
 }
