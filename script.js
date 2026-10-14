@@ -136,6 +136,7 @@ function renderConcepts() {
 }
 
 document.title = club.name;
+document.querySelector(".brand").textContent = club.name;
 document.getElementById("when").textContent = club.meetingInfo;
 // Home tab: one preview card per section
 const plural = (n, word) => n + " " + word + (n === 1 ? "" : "s");
@@ -209,7 +210,7 @@ function setupTabs() {
       if (!TABS.includes(id)) return;
       e.preventDefault();
       open(id);
-      if (a.classList.contains("home-btn")) window.scrollTo(0, 0);
+      if (a.classList.contains("brand")) window.scrollTo(0, 0);
     });
   });
   window.addEventListener("popstate", () => show(fromHash()));
