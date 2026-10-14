@@ -55,15 +55,22 @@ function renderMembers() {
   setupToggle(list, document.getElementById("members-toggle"), document.getElementById("members"));
 }
 
-function renderMeetings() {
-  const list = document.getElementById("meeting-list");
+// A meeting counts as done starting the day after its date.
+function meetingDay(m) { return new Date(m.date + "T12:00:00"); }
+function isDone(m) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const sorted = [...meetings].sort((a, b) => a.date.localeCompare(b.date));
-  let nextIdx = sorted.findIndex(m => new Date(m.date + "T12:00:00") >= today);
+  return meetingDay(m) < today;
+}
+const byDate = (a, b) => a.date.localeCompare(b.date);
+
+function renderMeetings() {
+  const list = document.getElementById("meeting-list");
+  const sorted = [...meetings].sort(byDate);
+  let nextIdx = sorted.findIndex(m => !isDone(m));
   if (nextIdx === -1) nextIdx = sorted.length; // every meeting is done
   sorted.forEach((m, i) => {
-    const when = new Date(m.date + "T12:00:00");
+    const when = meetingDay(m);
     const item = el("li", i < nextIdx ? "past" : "");
     if (i === nextIdx) item.classList.add("next"); // the first meeting that hasn't happened yet
     // Collapsed view: the last completed meeting, the next one, and the one after that
@@ -84,8 +91,56 @@ function renderMeetings() {
   setupToggle(list, document.getElementById("meetings-toggle"), document.getElementById("meetings"));
 }
 
+// Turns `backtick` parts of a sentence into <code>, safely (no innerHTML).
+function withCode(tag, text) {
+  const node = el(tag);
+  String(text).split("`").forEach((part, i) => {
+    if (part) node.append(i % 2 ? el("code", "", part) : document.createTextNode(part));
+  });
+  return node;
+}
+
+// Collapsed view: the most recent learned concepts and the next ones coming up
+const CONCEPTS_LEARNED_SHOWN = 3;
+const CONCEPTS_UPCOMING_SHOWN = 2;
+
+function renderConcepts() {
+  const list = document.getElementById("concept-list");
+  const taught = [...meetings].filter(m => m.concept).sort(byDate);
+  const learnedCount = taught.filter(isDone).length;
+  taught.forEach((m, i) => {
+    const learned = i < learnedCount;
+    const item = el("li", learned ? "learned" : "locked");
+    if (learned ? i < learnedCount - CONCEPTS_LEARNED_SHOWN : i >= learnedCount + CONCEPTS_UPCOMING_SHOWN) {
+      item.classList.add("extra");
+    }
+    // Concept name ------- meeting it was learned in
+    const head = el("span", "c-head");
+    const when = meetingDay(m).toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    const meeting = el("span", "c-meeting", m.title);
+    meeting.append(el("span", "c-date", when));
+    head.append(el("span", "c-name", m.concept), el("span", "c-lead"), meeting);
+
+    if (learned) {
+      // Click to open: <details> is a built-in dropdown that works with the keyboard too
+      const box = el("details");
+      const summary = el("summary");
+      summary.append(head, el("span", "c-arrow"));
+      box.append(summary, withCode("p", m.learned || "Notes for this concept are coming soon."));
+      item.append(box);
+    } else {
+      const row = el("div", "c-row");
+      row.append(head, el("span", "c-tag", "Concept not learned"));
+      item.append(row);
+    }
+    list.append(item);
+  });
+  setupToggle(list, document.getElementById("concepts-toggle"), document.getElementById("concepts"));
+}
+
 document.title = club.name;
 document.querySelector(".brand").textContent = club.name;
 document.getElementById("when").textContent = club.meetingInfo;
-renderMembers();
 renderMeetings();
+renderConcepts();
+renderMembers();

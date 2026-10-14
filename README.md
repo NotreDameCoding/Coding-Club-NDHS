@@ -5,8 +5,9 @@ NDHS CODING CLUB WEBSITE
 ## Files
 - `index.html`: page structure
 - `style.css`: how it looks
-- `script.js`: builds the page from the data
-- `data.js`: information held on the site
+- `script.js`: builds the Meetings, Concepts, and Members sections from the data
+- `data.js`: information held on the site (members, meetings, and the concept each meeting teaches)
+- `games.js` and `games.css`: the Coding Games (Booleans, HTML Tags, Flexbox)
 
 ## How to add yourself
 - Go to Data.js

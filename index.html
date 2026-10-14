@@ -10,15 +10,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="concepts.css">
+  <link rel="stylesheet" href="games.css">
 </head>
 <body>
   <header class="top">
     <a class="brand" href="#">Coding Club</a>
     <nav aria-label="Main">
-      <a href="#members">Members</a>
       <a href="#meetings">Meetings</a>
       <a href="#concepts">Concepts</a>
+      <a href="#games">Coding Games</a>
+      <a href="#members">Members</a>
     </nav>
   </header>
 
@@ -38,12 +39,6 @@
       <!-- <img src="images/athletics_monogram1-removebg-preview.png" alt="Club members at a meeting" class="hero-img"> -->
     </section>
 
-    <section id="members" aria-labelledby="members-h">
-      <h2 id="members-h">Members</h2>
-      <ul class="wall" id="member-list"></ul>
-      <button type="button" class="toggle-more" id="members-toggle" aria-controls="member-list" aria-expanded="false" hidden>Show more</button>
-    </section>
-
     <section id="meetings" aria-labelledby="meetings-h">
       <h2 id="meetings-h">Meetings</h2>
       <ul class="meetings" id="meeting-list"></ul>
@@ -52,28 +47,26 @@
 
     <section id="concepts" aria-labelledby="concepts-h">
       <h2 id="concepts-h">Concepts</h2>
+      <!-- Built from the "concept" and "learned" lines on each meeting in data.js -->
+      <ul class="concept-list" id="concept-list"></ul>
+      <button type="button" class="toggle-more" id="concepts-toggle" aria-controls="concept-list" aria-expanded="false" hidden>Show more</button>
+    </section>
 
-      <!-- To add a new topic later, copy this whole .concept block and give it its own script. -->
-      <div class="concept">
-        <!-- Start -->
-        <div id="bool-idle" class="concept-row">
-          <h3 class="concept-title">Booleans:</h3>
+    <section id="games" aria-labelledby="games-h">
+      <h2 id="games-h">Coding Games</h2>
+
+      <!-- To add a new game later, copy a whole .game block and give it its own part of games.js. -->
+
+      <!-- ===== Booleans ===== -->
+      <div class="game">
+        <div id="bool-idle" class="game-row">
+          <h3 class="game-title">Booleans:</h3>
           <button type="button" class="btn" id="bool-start">Practice</button>
         </div>
 
-        <!-- Choose a game -->
-        <div id="bool-mode" hidden>
-          <p class="concept-ask">Choose a game</p>
-          <div class="diff-row">
-            <button type="button" class="btn" id="mode-expr">Boolean Expressions</button>
-            <button type="button" class="btn" id="mode-tt">Boolean Truth Tables</button>
-            <button type="button" class="btn btn-ghost" id="mode-back">Back</button>
-          </div>
-        </div>
-
-        <!-- Expressions: pick a difficulty (goes away once you choose) -->
+        <!-- Pick a difficulty (goes away once you choose) -->
         <div id="bool-pick" hidden>
-          <p class="concept-ask">Select a difficulty</p>
+          <p class="game-ask">Select a difficulty</p>
           <div class="diff-row">
             <button type="button" class="btn diff-easy" data-diff="easy">Easy</button>
             <button type="button" class="btn diff-normal" data-diff="normal">Normal</button>
@@ -88,9 +81,9 @@
           </label>
         </div>
 
-        <!-- Expressions: the game -->
+        <!-- The game -->
         <div id="bool-play" hidden>
-          <div class="concept-row">
+          <div class="game-row">
             <div class="expr" id="bool-expr" aria-live="polite"></div>
             <div class="answers">
               <button type="button" class="ans" id="bool-true">True</button>
@@ -107,27 +100,92 @@
           </div>
           <div class="explain-box" id="bool-box" hidden></div>
         </div>
+      </div>
 
-        <!-- Truth tables: the game -->
-        <div id="tt-play" hidden>
-          <p class="concept-ask">Build the expression that matches this table</p>
-          <div class="tt-layout">
-            <table class="tt" id="tt-table"></table>
-            <div class="tt-controls">
-              <button type="button" class="ans" id="tt-x">x</button>
-              <button type="button" class="ans" id="tt-op">&amp;&amp;</button>
-              <button type="button" class="ans" id="tt-y">y</button>
-              <button type="button" class="btn" id="tt-submit">Submit</button>
-            </div>
+      <!-- ===== HTML Tags ===== -->
+      <div class="game">
+        <div id="tag-idle" class="game-row">
+          <h3 class="game-title">HTML Tags:</h3>
+          <button type="button" class="btn" id="tag-start">Practice</button>
+        </div>
+
+        <div id="tag-pick" hidden>
+          <p class="game-ask">Select a difficulty</p>
+          <div class="diff-row">
+            <button type="button" class="btn diff-easy" data-diff="easy">Easy</button>
+            <button type="button" class="btn diff-normal" data-diff="normal">Normal</button>
+            <button type="button" class="btn diff-hard" data-diff="hard">Hard</button>
+            <button type="button" class="btn btn-ghost" id="tag-cancel">Back</button>
           </div>
-          <p class="tt-answer" id="tt-answer" hidden></p>
+        </div>
+
+        <div id="tag-play" hidden>
+          <p class="game-ask">Which tag does this?</p>
+          <div class="prompt" id="tag-prompt" aria-live="polite"></div>
+          <div class="choices" id="tag-choices"></div>
+          <div class="explain-box" id="tag-box" hidden></div>
           <div class="bar">
-            <button type="button" class="btn" id="tt-next" hidden>Next question</button>
-            <button type="button" class="btn btn-ghost" id="tt-stop">Stop</button>
-            <span class="stats" id="tt-stats"></span>
+            <span class="badge" id="tag-badge"></span>
+            <button type="button" class="btn" id="tag-next" hidden>Next question</button>
+            <button type="button" class="btn btn-ghost" id="tag-stop">Stop</button>
+            <span class="stats" id="tag-stats"></span>
           </div>
         </div>
       </div>
+
+      <!-- ===== Flexbox ===== -->
+      <div class="game">
+        <div id="flex-idle" class="game-row">
+          <h3 class="game-title">Flexbox:</h3>
+          <button type="button" class="btn" id="flex-start">Practice</button>
+        </div>
+
+        <div id="flex-pick" hidden>
+          <p class="game-ask">Select a difficulty</p>
+          <div class="diff-row">
+            <button type="button" class="btn diff-easy" data-diff="easy">Easy</button>
+            <button type="button" class="btn diff-normal" data-diff="normal">Normal</button>
+            <button type="button" class="btn diff-hard" data-diff="hard">Hard</button>
+            <button type="button" class="btn btn-ghost" id="flex-cancel">Back</button>
+          </div>
+        </div>
+
+        <div id="flex-play" hidden>
+          <p class="game-ask" id="flex-ask"></p>
+          <div class="boards" id="flex-boards">
+            <div>
+              <p class="board-label">Target</p>
+              <div class="stage" id="flex-target"><span class="box">1</span><span class="box">2</span><span class="box">3</span></div>
+            </div>
+            <div id="flex-yours-wrap" hidden>
+              <p class="board-label">Yours</p>
+              <div class="stage" id="flex-yours"><span class="box">1</span><span class="box">2</span><span class="box">3</span></div>
+            </div>
+          </div>
+          <!-- Easy and Normal: click a value to answer -->
+          <div class="choices" id="flex-quick"></div>
+          <!-- Hard: set both properties, then Submit -->
+          <div id="flex-build" hidden>
+            <div class="css-line" id="flex-css"></div>
+            <div class="prop-row"><span class="prop-name">justify-content:</span><div class="choices" id="flex-j"></div></div>
+            <div class="prop-row"><span class="prop-name">align-items:</span><div class="choices" id="flex-a"></div></div>
+            <button type="button" class="btn submit" id="flex-submit">Submit</button>
+          </div>
+          <div class="explain-box" id="flex-box" hidden></div>
+          <div class="bar">
+            <span class="badge" id="flex-badge"></span>
+            <button type="button" class="btn" id="flex-next" hidden>Next question</button>
+            <button type="button" class="btn btn-ghost" id="flex-stop">Stop</button>
+            <span class="stats" id="flex-stats"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="members" aria-labelledby="members-h">
+      <h2 id="members-h">Members</h2>
+      <ul class="wall" id="member-list"></ul>
+      <button type="button" class="toggle-more" id="members-toggle" aria-controls="member-list" aria-expanded="false" hidden>Show more</button>
     </section>
   </main>
 
@@ -137,6 +195,6 @@
 
   <script src="data.js"></script>
   <script src="script.js"></script>
-  <script src="concepts.js"></script>
+  <script src="games.js"></script>
 </body>
 </html>
