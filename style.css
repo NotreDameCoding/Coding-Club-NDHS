@@ -35,7 +35,7 @@ a:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
 /* Header */
 .top {
   position: sticky; top: 0; z-index: 10;
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex; justify-content: center; align-items: center;
   flex-wrap: wrap; gap: 0.5rem;
   padding: 0.75rem clamp(1rem, 5vw, 3rem);
   background: var(--paper);
@@ -52,7 +52,7 @@ main, footer { padding: 0 clamp(1rem, 5vw, 3rem); max-width: 68rem; margin: 0 au
 
 /* Hero: text on the left, knight on the right */
 .hero {
-  display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: center;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: center;
   padding: clamp(1.75rem, 4vw, 2.5rem) 0 1.5rem;
 }
 @media (min-width: 52rem) { .hero { grid-template-columns: 1.25fr 0.75fr; } }
