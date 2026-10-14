@@ -35,7 +35,7 @@ a:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
 /* Header */
 .top {
   position: sticky; top: 0; z-index: 10;
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex; justify-content: flex-end; align-items: center;
   flex-wrap: wrap; gap: 0.5rem;
   padding: 0.75rem clamp(1rem, 5vw, 3rem);
   background: var(--paper);
@@ -44,13 +44,13 @@ a:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
 /* Home button in the header */
 .home-btn {
   display: inline-flex; align-items: center; gap: 0.55rem;
-  padding: 0.3rem 0.9rem 0.3rem 0.6rem;
+  padding: 0.3rem 0.65rem 0.3rem 0.95rem;
   font-weight: 800; font-size: 1.05rem; color: var(--ink); text-decoration: none;
   background: var(--signal); border: 2px solid var(--ink); border-radius: 0.7rem;
   box-shadow: var(--shadow);
 }
 .home-btn:active { transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink); }
-.home-icon { width: 1.6rem; height: auto; display: block; }
+.home-icon { height: 1.75rem; width: auto; display: block; }
 
 main, footer { padding: 0 clamp(1rem, 5vw, 3rem); max-width: 68rem; margin: 0 auto; }
 
