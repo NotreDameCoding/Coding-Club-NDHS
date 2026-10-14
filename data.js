@@ -65,12 +65,5 @@ const meetings = [
   { date: "2026-11-10", title: "Flexbox Layout", note: "Club members will learn rows, columns, and centering, and build a nav bar" },
   { date: "2026-11-17", title: "Plan Your Website", note: "Club members will sketch a wireframe and set up a repo for their personal site" },
   { date: "2026-11-24", title: "Website Build Session", note: "Club members will turn their wireframe into a styled HTML/CSS page" },
-  { date: "2027-01-12", title: "Intro to JavaScript", note: "Club members will review HTML/CSS and learn variables and console.log" },
-  { date: "2027-01-19", title: "Functions & Events", note: "Club members will make a button do something when clicked" },
-  { date: "2027-01-26", title: "The DOM", note: "Club members will use JavaScript to change text, styles, and elements on a page" },
-  { date: "2027-02-02", title: "Logic & Loops", note: "Club members will learn booleans, if/else, arrays, and loops" },
-  { date: "2027-02-09", title: "Add JS to Your Site", note: "Club members will add one interactive feature to their personal website" },
-  { date: "2027-03-02", title: "Coding with AI", note: "Club members will learn to use AI as a coding helper and check the code it writes" },
-  { date: "2027-03-09", title: "Deploy with GitHub Pages", note: "Club members will put their personal website live with its own URL" },
   // add new meetings above this line
 ];
