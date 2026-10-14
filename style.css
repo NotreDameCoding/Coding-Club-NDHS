@@ -108,9 +108,15 @@ main > section[hidden] { display: none; }
 .home-card h3 { margin: 0; font-size: 1.5rem; font-weight: 800; }
 .home-card p { margin: 0.45rem 0 0; font-size: 1.05rem; font-weight: 700; }
 .home-card .go {
-  display: inline-block; margin-top: 0.9rem; padding: 0.3rem 0.9rem; font-weight: 800;
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  margin-top: 0.9rem; padding: 0.25rem 0.3rem 0.25rem 0.9rem; font-weight: 800;
   background: var(--signal); border: 2px solid var(--ink); border-radius: 999px;
 }
+.go-arrow {
+  flex: none; width: 1.65rem; height: 1.65rem; display: grid; place-items: center;
+  background: var(--ink); border-radius: 50%;
+}
+.go-arrow svg { width: 0.8rem; height: auto; display: block; }
 
 /* Section headings get a highlighter underline */
 h2 {
@@ -253,7 +259,7 @@ details[open] .c-arrow::before { content: "\25B4"; }
   .concept-list code { white-space: normal; }
 }
 
-/* Past meetings: hidden at first, behind a dashed card at the top of the list */
+/* Past meetings: hidden at first; they open above the dashed card */
 .meetings.hide-past li.past { display: none; }
 .meetings li.past-toggle { padding: 0; background: none; border: none; box-shadow: none; }
 .past-toggle button {
@@ -268,8 +274,9 @@ details[open] .c-arrow::before { content: "\25B4"; }
   flex: none; width: 4.2rem; height: 2.1rem; display: grid; place-items: center;
   border: 2px dashed var(--muted); border-radius: 0.6rem;
 }
-.pt-arrow::before { content: "\25BE"; font-size: 1.1rem; line-height: 1; }
-.past-toggle [aria-expanded="true"] .pt-arrow::before { content: "\25B4"; }
+.pt-arrow::before { content: "\25B4"; font-size: 1.1rem; line-height: 1; }
+.past-toggle [aria-expanded="true"] .pt-arrow::before { content: "\25BE"; }
+.meetings { overflow-anchor: none; } /* script.js keeps the toggle in place itself */
 
 /* Footer */
 footer { padding-bottom: 3rem; text-align: center; color: var(--muted); }
