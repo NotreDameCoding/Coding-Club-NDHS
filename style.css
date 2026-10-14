@@ -173,7 +173,7 @@ h2 {
   background: var(--paper); border: 2px solid var(--ink); border-radius: 0.8rem;
   box-shadow: var(--shadow);
 }
-/* Completed meetings: faded card, softly crossed-out date, small "Completed" tag */
+/* Completed meetings: faded card and a crossed-out date */
 .meetings li.past { box-shadow: none; background: rgba(255, 255, 255, 0.7); color: var(--muted); }
 .meetings li.past .stamp { border-color: var(--muted); }
 .meetings li.past .mo { background: var(--muted); }
@@ -181,11 +181,6 @@ h2 {
 .meetings li.past .day::after {
   content: ""; position: absolute; left: 14%; right: 14%; top: 50%;
   border-top: 2px solid var(--coral); transform: rotate(-30deg);
-}
-.meetings li.past strong::after {
-  content: "\2713  Completed"; margin-left: 0.6rem; padding: 0.05rem 0.6rem;
-  color: var(--muted); font-size: 0.75rem; font-weight: 700;
-  border: 1.5px solid var(--muted); border-radius: 999px;
 }
 .stamp {
   flex: none; width: 4.2rem; display: flex; flex-direction: column; text-align: center; line-height: 1;
