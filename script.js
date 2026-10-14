@@ -142,7 +142,7 @@ document.title = club.name;
 document.querySelector(".brand").textContent = club.name;
 document.getElementById("when").textContent = club.meetingInfo;
 // Pixel-art arrow for the Home card buttons, drawn like the knight
-const ARROW_SVG = '<svg viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path fill="#fff" d="M3 0h1v1h-1zM3 1h2v1h-2zM0 2h6v1h-6zM0 3h7v1h-7zM0 4h6v1h-6zM3 5h2v1h-2zM3 6h1v1h-1z"/></svg>';
+const ARROW_SVG = '<svg viewBox="0 0 7 7" shape-rendering="crispEdges" aria-hidden="true"><path fill="#14213d" d="M3 0h1v1h-1zM3 1h2v1h-2zM0 2h6v1h-6zM0 3h7v1h-7zM0 4h6v1h-6zM3 5h2v1h-2zM3 6h1v1h-1z"/></svg>';
 
 // Home tab: one preview card per section
 const plural = (n, word) => n + " " + word + (n === 1 ? "" : "s");
