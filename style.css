@@ -258,16 +258,23 @@ details[open] .c-arrow::before { content: "\25B4"; }
   .concept-list code { white-space: normal; }
 }
 
-/* "Show more / Show less" for long lists */
-.wall.collapsed .extra, .meetings.collapsed .extra, .concept-list.collapsed .extra { display: none; }
-.toggle-more {
-  display: block; margin: 0.75rem 0 0; padding: 0.3rem 0.94rem;
-  font: inherit; font-weight: 550; cursor: pointer;
-  background: var(--paper); color: var(--ink);
-  border: 2.4px solid var(--ink); border-radius: 999px; box-shadow: var(--shadow);
+/* Past meetings: hidden at first, behind a dashed card at the top of the list */
+.meetings.hide-past li.past { display: none; }
+.meetings li.past-toggle { padding: 0; background: none; border: none; box-shadow: none; }
+.past-toggle button {
+  width: 100%; display: flex; align-items: center; gap: 1.1rem; padding: 0.6rem 1.1rem;
+  font: inherit; font-weight: 700; color: var(--muted); text-align: left; cursor: pointer;
+  background: rgba(255, 255, 255, 0.55);
+  border: 2px dashed var(--muted); border-radius: 0.8rem;
 }
-.toggle-more[hidden] { display: none; }
-.toggle-more:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+.past-toggle button:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+/* Lines up with the calendar dates below it */
+.pt-arrow {
+  flex: none; width: 4.2rem; height: 2.1rem; display: grid; place-items: center;
+  border: 2px dashed var(--muted); border-radius: 0.6rem;
+}
+.pt-arrow::before { content: "\25BE"; font-size: 1.1rem; line-height: 1; }
+.past-toggle [aria-expanded="true"] .pt-arrow::before { content: "\25B4"; }
 
 /* Footer */
 footer { padding-bottom: 3rem; text-align: center; color: var(--muted); }

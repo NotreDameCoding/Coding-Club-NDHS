@@ -15,21 +15,6 @@ function initials(name) {
 // Roles with no special color: plain members and the inside jokes
 const PLAIN_ROLES = ["member", "emperor", "philosopher"];
 const OFFICER_COLORS = 6; // officer-0 to officer-5 in style.css
-const MEMBERS_SHOWN = 9;  // first three rows; the rest sit behind "Show more"
-
-// Items marked "extra" stay hidden until the button is pressed.
-// The button only appears if something is actually hidden.
-function setupToggle(list, button, section) {
-  if (!list.querySelector(".extra")) return;
-  list.classList.add("collapsed");
-  button.hidden = false;
-  button.addEventListener("click", () => {
-    const collapsed = list.classList.toggle("collapsed");
-    button.textContent = collapsed ? "Show more" : "Show less";
-    button.setAttribute("aria-expanded", String(!collapsed));
-    if (collapsed) section.scrollIntoView({ block: "start" }); // back to the top of the list
-  });
-}
 
 const roleOf = m => (m.role || "").trim().toLowerCase();
 const isOfficer = m => roleOf(m) !== "" && !PLAIN_ROLES.includes(roleOf(m));
@@ -40,7 +25,6 @@ function renderMembers() {
   const officerColor = {};                // role -> color number, handed out in order
   roster.forEach((m, i) => {
     const item = el("li", "tile tone-" + (i % 4));
-    if (i >= MEMBERS_SHOWN) item.classList.add("extra");
     const role = roleOf(m);
     if (isOfficer(m)) {
       if (!(role in officerColor)) officerColor[role] = Object.keys(officerColor).length;
@@ -55,7 +39,6 @@ function renderMembers() {
     list.append(item);
   });
   document.getElementById("member-count").textContent = roster.length;
-  setupToggle(list, document.getElementById("members-toggle"), document.getElementById("members"));
 }
 
 // A meeting counts as done starting the day after its date.
@@ -76,8 +59,6 @@ function renderMeetings() {
     const when = meetingDay(m);
     const item = el("li", i < nextIdx ? "past" : "");
     if (i === nextIdx) item.classList.add("next"); // the first meeting that hasn't happened yet
-    // Collapsed view: the last completed meeting, the next one, and the one after that
-    if (i < nextIdx - 1 || i > nextIdx + 1) item.classList.add("extra");
     const stamp = el("time", "stamp");
     stamp.dateTime = m.date;
     stamp.append(
@@ -91,7 +72,28 @@ function renderMeetings() {
     item.append(body);
     list.append(item);
   });
-  setupToggle(list, document.getElementById("meetings-toggle"), document.getElementById("meetings"));
+  setupPastToggle(list, nextIdx);
+}
+
+// Past meetings are hidden at first. A dashed card at the top of the list,
+// right where they would be, shows or hides them.
+function setupPastToggle(list, pastCount) {
+  if (pastCount === 0) return;
+  list.classList.add("hide-past");
+  const item = el("li", "past-toggle");
+  const button = el("button");
+  button.type = "button";
+  button.setAttribute("aria-controls", "meeting-list");
+  button.setAttribute("aria-expanded", "false");
+  const label = shown => (shown ? "Hide past meetings" : `Show ${pastCount} past meeting${pastCount === 1 ? "" : "s"}`);
+  button.append(el("span", "pt-arrow"), el("span", "pt-label", label(false)));
+  button.addEventListener("click", () => {
+    const shown = !list.classList.toggle("hide-past");
+    button.setAttribute("aria-expanded", String(shown));
+    button.querySelector(".pt-label").textContent = label(shown);
+  });
+  item.append(button);
+  list.prepend(item);
 }
 
 // Turns `backtick` parts of a sentence into <code>, safely (no innerHTML).
@@ -103,10 +105,6 @@ function withCode(tag, text) {
   return node;
 }
 
-// Collapsed view: the most recent learned concepts and the next ones coming up
-const CONCEPTS_LEARNED_SHOWN = 3;
-const CONCEPTS_UPCOMING_SHOWN = 2;
-
 function renderConcepts() {
   const list = document.getElementById("concept-list");
   const taught = [...meetings].filter(m => m.concept).sort(byDate);
@@ -114,9 +112,6 @@ function renderConcepts() {
   taught.forEach((m, i) => {
     const learned = i < learnedCount;
     const item = el("li", learned ? "learned" : "locked");
-    if (learned ? i < learnedCount - CONCEPTS_LEARNED_SHOWN : i >= learnedCount + CONCEPTS_UPCOMING_SHOWN) {
-      item.classList.add("extra");
-    }
     // Concept name ------- meeting it was learned in
     const head = el("span", "c-head");
     const when = meetingDay(m).toLocaleDateString(undefined, { month: "short", day: "numeric" });
@@ -138,7 +133,6 @@ function renderConcepts() {
     }
     list.append(item);
   });
-  setupToggle(list, document.getElementById("concepts-toggle"), document.getElementById("concepts"));
 }
 
 document.title = club.name;
