@@ -55,13 +55,22 @@ main, footer { padding: 0 clamp(1rem, 5vw, 3rem); max-width: 68rem; margin: 0 au
   display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: center;
   padding: clamp(1.75rem, 4vw, 2.5rem) 0 1.5rem;
 }
-@media (min-width: 52rem) { .hero { grid-template-columns: 1.25fr 0.75fr; } }
+/* Wide screens: text column takes the free space, the knight sits at the far right */
+@media (min-width: 52rem) { .hero { grid-template-columns: minmax(0, 1fr) auto; } }
 .hero h1 {
   font-size: clamp(2.2rem, 5vw, 3.1rem);
   line-height: 1.02; font-weight: 800; letter-spacing: -0.03em;
   margin: 0 0 1rem;
 }
 .hero p { max-width: 55ch; font-size: 1rem; color: var(--muted); margin: 0 0 0.9rem; }
+/* "We have N members. Email ..." stays on one line when the column is wide enough.
+   The text shrinks a little with the column (cqw = % of .hero-text's width) so it never overflows.
+   On phones the column is too narrow, so it wraps normally. */
+.hero-text { container-type: inline-size; }
+.hero .join { max-width: none; text-wrap: balance; }
+@container (min-width: 38rem) {
+  .hero .join { white-space: nowrap; font-size: min(1rem, 2.3cqw); }
+}
 #member-count { font-weight: 800; color: var(--cobalt); }
 .hero .when {
   display: inline-block; padding: 0.25rem 0.75rem; font-size: 0.95rem;
@@ -70,13 +79,14 @@ main, footer { padding: 0 clamp(1rem, 5vw, 3rem); max-width: 68rem; margin: 0 au
 }
 .hero .when:empty { display: none; }
 .mascot { width: clamp(14rem, 25vw, 18rem); height: auto; justify-self: center; filter: drop-shadow(6px 6px 0 var(--cobalt)); }
+@media (min-width: 52rem) { .mascot { justify-self: end; } }
 
 
 .hero-img { width: 100%; height: 100%; max-height: 24rem; object-fit: cover; border-radius: 0.75rem; }
 
 /* Tabs: one section shows at a time (script.js switches them) */
 .tabbar {
-  display: flex; flex-wrap: wrap; gap: 0.7rem;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7rem;
   padding: 0 0 1.1rem; border-bottom: 2px dashed var(--ink);
 }
 .tabbar button {
